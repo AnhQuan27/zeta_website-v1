@@ -6,15 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Services\UserService;
 use App\Http\Resources\UserResource;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
     protected $userService;
 
-    /**
-     * Constructor
-     */
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
@@ -65,6 +62,33 @@ class UserController extends Controller
         $deleted = $this->userService->deleteUser($id);
         if (!$deleted) {
             return response()->json(['message' => 'User not found or failed to delete'], Response::HTTP_NOT_FOUND);
+        }
+        return response()->noContent();
+    }
+
+    public function restore($id)
+    {
+        $restored = $this->userService->restoreUser($id);
+        if (!$restored) {
+            return response()->json(
+                ['message' => 'User not found in trash'], 
+                Response::HTTP_NOT_FOUND
+            );
+        }
+        return response()->json(
+            ['message' => 'User restored successfully'],
+            Response::HTTP_OK
+        );
+    }
+
+    public function forceDelete($id)
+    {
+        $deleted = $this->userService->forceDeleteUser($id);
+        if (!$deleted) {
+            return response()->json(
+                ['message' => 'User not found or failed to delete permanently'], 
+                Response::HTTP_NOT_FOUND
+            );
         }
         return response()->noContent();
     }
