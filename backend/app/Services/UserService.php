@@ -9,9 +9,6 @@ class UserService
 {
     protected $userRepository;
 
-    /**
-     * Constructor
-     */
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
@@ -22,23 +19,33 @@ class UserService
         return $this->userRepository->getAll();
     }
 
-    public function getUserById(int $id): ?User
+    public function getUserById(int $id)
     {
         return $this->userRepository->getById($id);
     }
 
-    public function createUser(array $data): User
+    public function createUser(array $data)
     {
         return $this->userRepository->create($data);
     }
 
-    public function updateUser(int $id, array $data): bool
+    public function updateUser(int $id, array $data)
     {
         return $this->userRepository->update($id, $data);
     }
 
-    public function deleteUser(int $id): bool
+    public function deleteUser(int $id)
     {
         return $this->userRepository->delete($id);
+    }
+
+    public function restoreUser($id)
+    {
+        return $this->userRepository->restore($id);
+    }
+
+    public function forceDeleteUser($id)
+    {
+        return $this->userRepository->forceDelete($id);
     }
 }
