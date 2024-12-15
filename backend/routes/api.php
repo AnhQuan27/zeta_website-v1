@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\API\OrderController;
+use App\Http\Controllers\API\RoleController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,9 +26,16 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('users', UserController::class);
 
         Route::apiResource('orders', OrderController::class);
-        Route::patch('/orders/{id}/restore', [OrderController::class, 'restore']);
-        Route::delete('/orders/{id}/force', [OrderController::class, 'forceDelete']);
+        Route::prefix('/orders')->group(function () {
+            Route::patch('/{id}/restore', [OrderController::class, 'restore']);
+            Route::delete('/{id}/force', [OrderController::class, 'forceDelete']);
+        });
         
+        Route::apiResource('roles', RoleController::class);
+        Route::prefix('/roles')->group(function () {
+            Route::patch('/{id}/restore', [RoleController::class, 'restore']);
+            Route::delete('/{id}/force', [RoleController::class, 'forceDelete']);
+        });
 
 
         Route::get('/user', [AuthController::class, 'user']);
