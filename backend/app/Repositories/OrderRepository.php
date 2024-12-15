@@ -17,7 +17,7 @@ class OrderRepository
 
     public function getById(int $id)
     {
-        return Order::find($id);
+        return Order::withTrashed()->find($id);
     }
 
     public function create(array $data)
@@ -45,7 +45,7 @@ class OrderRepository
 
     public function restore($id): bool
     {
-        $order = $this->getById($id);
+        $order = Order::onlyTrashed()->find($id);
         if ($order) {
             return $order->restore();
         }
@@ -54,7 +54,7 @@ class OrderRepository
 
     public function forceDelete($id): bool
     {
-        $order = $this->getById($id);
+        $order = Order::withTrashed()->find($id);
         if ($order) {
             return $order->forceDelete();
         }
