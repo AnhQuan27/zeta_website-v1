@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Collection;
 
 class OrderRepository
 {
-    public function getAll(): Collection
+    public function getAll(bool $withTrashed = false): Collection
     {
+        if ($withTrashed) {
+            return Order::withTrashed()->get();
+        }
         return Order::all();
     }
 
