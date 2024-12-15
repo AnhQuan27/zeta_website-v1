@@ -73,4 +73,16 @@ class RoleController extends Controller
             );
         }
     }
+
+    public function forceDelete($id)
+    {
+        $deleted = $this->roleService->forceDeleteRole($id);
+        if (!$deleted) {
+            return response()->json(
+                ['message' => 'Role not found or failed to delete permanently'],
+                Response::HTTP_NOT_FOUND
+            );
+        }
+        return response()->noContent();
+    }
 }
