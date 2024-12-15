@@ -24,7 +24,8 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('users', UserController::class);
 
         Route::apiResource('orders', OrderController::class);
-
+        Route::patch('/orders/{id}/restore', [OrderController::class, 'restore']);
+        Route::delete('/orders/{id}/force', [OrderController::class, 'forceDelete']);
         
 
 
