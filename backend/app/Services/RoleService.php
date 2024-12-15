@@ -6,45 +6,45 @@ use App\Repositories\RoleRepository;
 
 class RoleService 
 {
-    protected $roleService;
+    protected $roleRepository;
 
-    public function __construct(RoleRepository $roleService)
+    public function __construct(RoleRepository $roleRepository)
     {
-        $this->roleService = $roleService;
+        $this->roleRepository = $roleRepository;
     }
 
     public function getAllRoles()
     {
-        return $this->roleService->getAll();
+        return $this->roleRepository->getAll();
     }
 
     public function getRoleById($id)
     {
-        return $this->roleService->getById($id);
+        return $this->roleRepository->getById($id);
     }
 
     public function createRole(array $data)
     {
-        return $this->roleService->create($data);
+        return $this->roleRepository->create($data);
     }
 
     public function updateRole($id, array $data)
     {
-        return $this->roleService->update($id, $data);
+        return $this->roleRepository->update($id, $data);
     }
 
     public function deleteRole($id)
     {
-        return $this->roleService->delete($id);
+        return $this->roleRepository->delete($id);
     }
 
     public function restoreRole($id)
     {
-        return $this->roleService->restore($id);
+        return $this->roleRepository->restore($id);
     }
 
     public function forceDeleteRole($id)
     {
-        return $this->roleService->forceDelete($id);
+        return $this->roleRepository->forceDelete($id);
     }
 }
