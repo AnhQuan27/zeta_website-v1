@@ -30,7 +30,10 @@ class OrderController extends Controller
     {
         $order = $this->orderService->getOrderById($id);
         if (!$order) {
-            return response()->json(['message' => 'Order not found'], Response::HTTP_NOT_FOUND);
+            return response()->json(
+                ['message' => 'Order not found'],
+                Response::HTTP_NOT_FOUND
+            );
         }
         return (new OrderResource($order))
             ->response()
@@ -40,23 +43,35 @@ class OrderController extends Controller
     public function store(OrderRequest $request)
     {
         $order = $this->orderService->createOrder($request->validated());
-        return response()->json(new OrderResource($order), Response::HTTP_CREATED);
+        return response()->json(
+            new OrderResource($order),
+            Response::HTTP_CREATED
+        );
     }
 
     public function update(OrderRequest $request, $id)
     {
         $updated = $this->orderService->updateOrder($id, $request->validated());
         if (!$updated) {
-            return response()->json(['message' => 'Order not found'], Response::HTTP_NOT_FOUND);
+            return response()->json(
+                ['message' => 'Order not found'],
+                Response::HTTP_NOT_FOUND
+            );
         }
-        return response()->json(['message' => 'Order updated successfully'], Response::HTTP_OK);
+        return response()->json(
+            ['message' => 'Order updated successfully'],
+            Response::HTTP_OK
+        );
     }
 
     public function destroy($id)
     {
         $deleted = $this->orderService->deleteOrder($id);
         if (!$deleted) {
-            return response()->json(['message' => 'Order not found or failed to delete'], Response::HTTP_NOT_FOUND);
+            return response()->json(
+                ['message' => 'Order not found or failed to delete'],
+                Response::HTTP_NOT_FOUND
+            );
         }
         return response()->noContent();
     }

@@ -29,7 +29,10 @@ class UserController extends Controller
     {
         $user = $this->userService->getUserById($id);
         if (!$user) {
-            return response()->json(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
+            return response()->json(
+                ['message' => 'User not found'],
+                Response::HTTP_NOT_FOUND
+            );
         }
         return (new UserResource($user))
             ->response()
@@ -39,7 +42,10 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $user = $this->userService->createUser($request->validated());
-        return response()->json(new UserResource($user), Response::HTTP_CREATED);
+        return response()->json(
+            new UserResource($user),
+            Response::HTTP_CREATED
+        );
     }
 
     public function update(UserRequest $request, $id)
@@ -61,7 +67,10 @@ class UserController extends Controller
     {
         $deleted = $this->userService->deleteUser($id);
         if (!$deleted) {
-            return response()->json(['message' => 'User not found or failed to delete'], Response::HTTP_NOT_FOUND);
+            return response()->json(
+                ['message' => 'User not found or failed to delete'],
+                Response::HTTP_NOT_FOUND
+            );
         }
         return response()->noContent();
     }

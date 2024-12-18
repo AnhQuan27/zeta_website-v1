@@ -31,7 +31,10 @@ class RoleController extends Controller
     {
         $role = $this->roleService->getRoleById($id);
         if (!$role) {
-            return response()->json(['message' => 'Role not found'], Response::HTTP_NOT_FOUND);
+            return response()->json(
+                ['message' => 'Role not found'],
+                Response::HTTP_NOT_FOUND
+            );
         }
 
         return (new RoleResource($role))
@@ -42,23 +45,34 @@ class RoleController extends Controller
     public function store(RoleRequest $request)
     {
         $role = $this->roleService->createRole($request->validated());
-        return response()->json(new RoleResource($role), Response::HTTP_CREATED);
+        return response()->json(
+            new RoleResource($role),
+            Response::HTTP_CREATED
+        );
     }
 
     public function update(RoleRequest $request, $id)
     {
         $updated = $this->roleService->updateRole($id, $request->validated());
         if (!$updated) {
-            return response()->json(['message' => 'Role not found'], Response::HTTP_NOT_FOUND);
+            return response()->json(
+                ['message' => 'Role not found'],
+                Response::HTTP_NOT_FOUND);
         }
-        return response()->json(['message' => 'Role updated successfully'], Response::HTTP_OK);
+        return response()->json(
+            ['message' => 'Role updated successfully'],
+            Response::HTTP_OK
+        );
     }
 
     public function destroy($id)
     {
         $deleted = $this->roleService->deleteRole($id);
         if (!$deleted) {
-            return response()->json(['message' => 'Role not found or failed to delete'], Response::HTTP_NOT_FOUND);
+            return response()->json(
+                ['message' => 'Role not found or failed to delete'],
+                Response::HTTP_NOT_FOUND
+            );
         }
         return response()->noContent();
     }
