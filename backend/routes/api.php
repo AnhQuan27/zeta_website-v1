@@ -6,6 +6,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\RoleController;
+use App\Http\Controllers\API\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,12 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('users', UserController::class);
 
+        Route::apiResource('products', ProductController::class);
+        Route::prefix('/products')->group(function () {
+            Route::patch('/{id}/restore', [ProductController::class, 'restore']);
+            Route::delete('/{id}/force', [ProductController::class, 'forceDelete']);
+        });
+
         Route::apiResource('orders', OrderController::class);
         Route::prefix('/orders')->group(function () {
             Route::patch('/{id}/restore', [OrderController::class, 'restore']);
@@ -36,7 +43,6 @@ Route::prefix('v1')->group(function () {
             Route::patch('/{id}/restore', [RoleController::class, 'restore']);
             Route::delete('/{id}/force', [RoleController::class, 'forceDelete']);
         });
-
 
         Route::get('/user', [AuthController::class, 'user']);
         Route::post('/logout', [AuthController::class, 'logout']);
