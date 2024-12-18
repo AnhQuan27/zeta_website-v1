@@ -27,36 +27,36 @@ class ProductRepository
 
     public function update(int $id, array $data): bool
     {
-        $order = $this->getById($id);
-        if ($order) {
-            return $order->update($data);
+        $product = $this->getById($id);
+        if ($product) {
+            return $product->update($data);
         }
         return false;
     }
 
     public function delete(int $id): bool
     {
-        $order = $this->getById($id);
-        if ($order) {
-            return $order->delete();
+        $product = $this->getById($id);
+        if ($product) {
+            return $product->delete();
         }
         return false;
     }
 
     public function restore($id): bool
     {
-        $order = Product::onlyTrashed()->find($id);
-        if ($order) {
-            return $order->restore();
+        $product = Product::onlyTrashed()->find($id);
+        if ($product) {
+            return $product->restore();
         }
         return false;
     }
 
     public function forceDelete($id): bool
     {
-        $order = Product::withTrashed()->find($id);
-        if ($order) {
-            return $order->forceDelete();
+        $product = Product::withTrashed()->find($id);
+        if ($product) {
+            return $product->forceDelete();
         }
         return false;
     }
