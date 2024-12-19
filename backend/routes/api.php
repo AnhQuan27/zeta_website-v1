@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\RoleController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\ProductSkuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,12 @@ Route::prefix('v1')->group(function () {
         Route::prefix('/products')->group(function () {
             Route::patch('/{id}/restore', [ProductController::class, 'restore']);
             Route::delete('/{id}/force', [ProductController::class, 'forceDelete']);
+        });
+
+        Route::apiResource('product-skus', ProductSkuController::class);
+        Route::prefix('/product-skus')->group(function () {
+            Route::patch('/{id}/restore', [ProductSkuController::class, 'restore']);
+            Route::delete('/{id}/force', [ProductSkuController::class, 'forceDelete']);
         });
 
         Route::apiResource('orders', OrderController::class);
