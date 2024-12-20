@@ -4,12 +4,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\RoleController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\ProductSkuController;
 use App\Http\Controllers\API\ProductAttributeController;
 use App\Http\Controllers\API\ProductSkuAttributeController;
+use App\Http\Controllers\API\OrderController;
+use App\Http\Controllers\API\OrderItemController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -56,6 +58,12 @@ Route::prefix('v1')->group(function () {
         Route::prefix('/orders')->group(function () {
             Route::patch('/{id}/restore', [OrderController::class, 'restore']);
             Route::delete('/{id}/force', [OrderController::class, 'forceDelete']);
+        });
+
+        Route::apiResource('order-items', OrderItemController::class);
+        Route::prefix('/order-items')->group(function () {
+            Route::patch('/{id}/restore', [OrderItemController::class, 'restore']);
+            Route::delete('/{id}/force', [OrderItemController::class, 'forceDelete']);
         });
         
         Route::apiResource('roles', RoleController::class);
