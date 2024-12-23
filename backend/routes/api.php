@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\API\RoleController;
@@ -29,6 +30,12 @@ Route::prefix('v1')->group(function () {
     
     Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('users', UserController::class);
+
+        Route::apiResource('categories', CategoryController::class);
+        Route::prefix('/categories')->group(function () {
+            Route::patch('/{id}/restore', [CategoryController::class, 'restore']);
+            Route::delete('/{id}/force', [CategoryController::class, 'forceDelete']);
+        });
 
         Route::apiResource('products', ProductController::class);
         Route::prefix('/products')->group(function () {
