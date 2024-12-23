@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\CategoryController;
@@ -73,6 +74,12 @@ Route::prefix('v1')->group(function () {
             Route::delete('/{id}/force', [OrderItemController::class, 'forceDelete']);
         });
         
+        Route::apiResource('payments', PaymentController::class);
+        Route::prefix('/payments')->group(function () {
+            Route::patch('/{id}/restore', [PaymentController::class, 'restore']);
+            Route::delete('/{id}/force', [PaymentController::class, 'forceDelete']);
+        });
+
         Route::apiResource('roles', RoleController::class);
         Route::prefix('/roles')->group(function () {
             Route::patch('/{id}/restore', [RoleController::class, 'restore']);
