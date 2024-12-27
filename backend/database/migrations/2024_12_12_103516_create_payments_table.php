@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->integer('order_id');
-            $table->integer('amount');
-            $table->string('provider')->nullable();
-            $table->string('status');
+            $table->string('name');
+            $table->string('description');
             $table->softDeletes();
             $table->timestamps();
         });

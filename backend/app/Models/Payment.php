@@ -17,8 +17,8 @@ class Payment extends Model
         'status'
     ];
 
-    public function order()
+    public function transaction()
     {
-        return $this->belongsTo(Order::class);
+        return $this->hasMany(Transaction::class);
     }
 }
