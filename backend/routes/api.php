@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\API\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\CategoryController;
@@ -12,6 +11,8 @@ use App\Http\Controllers\API\ProductSkuController;
 use App\Http\Controllers\API\ProductAttributeController;
 use App\Http\Controllers\API\ProductSkuAttributeController;
 use App\Http\Controllers\API\OrderController;
+use App\Http\Controllers\API\PaymentController;
+use App\Http\Controllers\API\TransactionController;
 use App\Http\Controllers\API\OrderItemController;
 
 /*
@@ -78,6 +79,12 @@ Route::prefix('v1')->group(function () {
         Route::prefix('/payments')->group(function () {
             Route::patch('/{id}/restore', [PaymentController::class, 'restore']);
             Route::delete('/{id}/force', [PaymentController::class, 'forceDelete']);
+        });
+
+        Route::apiResource('transactions', TransactionController::class);
+        Route::prefix('/transactions')->group(function () {
+            Route::patch('/{id}/restore', [TransactionController::class, 'restore']);
+            Route::delete('/{id}/force', [TransactionController::class, 'forceDelete']);
         });
 
         Route::apiResource('roles', RoleController::class);
