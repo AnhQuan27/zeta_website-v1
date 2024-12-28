@@ -16,10 +16,8 @@ class PaymentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'order_id' => $this->order_id,
-            'amount' => $this->amount,
-            'provider' => $this->provider,
-            'status' => $this->status,
+            'name' => $this->name,
+            'description' => $this->description,
             'deleted_at' => $this->deleted_at ? $this->deleted_at->format('Y-m-d H:i:s') : null,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
