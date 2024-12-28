@@ -11,10 +11,8 @@ class Payment extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'order_id',
-        'amount',
-        'provider',
-        'status'
+        'name',
+        'description',
     ];
 
     public function transaction()

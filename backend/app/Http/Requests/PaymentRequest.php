@@ -22,10 +22,8 @@ class PaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'order_id' => 'required|exists:orders,id',
-            'amount' => 'required|numeric|min:0',
-            'provider' => 'nullable|string|max:255',
-            'status' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
         ];
     }
 }
