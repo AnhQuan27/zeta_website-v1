@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import Filter from '@/components/Filter'
-import ProductList from '@/components/ProductList'
+import Filter from '@/components/user/Filter'
+import ProductList from '@/components/user/ProductList'
 const ListPage = () => {
     return (
     <div className='px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative'>

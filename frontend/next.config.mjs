@@ -7,7 +7,13 @@ const nextConfig = {
                 hostname: 'images.pexels.com',
             }
         ]
-    }
+    },
+    rewrites: async () => [
+        {
+            source: '/:path((?!admin).*)',
+            destination: '/user/:path*',
+        }
+    ],
 };
 
 export default nextConfig;
